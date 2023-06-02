@@ -32,4 +32,4 @@ jobs:
 
       - name: Build ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
-        run: echo "The ${{ matrix.project }} directory changed!" >> $GITHUB_OUTPUT
+        run: echo echo "{project]}={working-directory}" >> $GITHUB_OUTPUT
