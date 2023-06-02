@@ -8,12 +8,12 @@ on:
 
 jobs:
   detect-directory-changes:
-    name: "Detect Directory Changes"
+    name: Detect Directory Changes Job
     runs-on: ubuntu-latest
     outputs:
       changed: ${{ steps.detect.outputs.changed }}
     steps:
-      - name: Checkout
+      - name: DDC Checkout Step
         uses: actions/checkout@v2
 
       - name: Detect Directory Changes
@@ -21,13 +21,13 @@ jobs:
         uses: tchupp/actions-detect-directory-changes@v0.1.8
 
   build:
-    name: "Build sub-projects"
+    name: Build sub-projects Job
     runs-on: ubuntu-latest
     strategy:
       matrix:
         project: ${{ fromJSON(needs.detect-directory-changes.outputs.changed) }}
     steps:
-      - name: Checkout
+      - name: Build Checkout Step
         uses: actions/checkout@v2
 
       - name: Build ${{ matrix.project }}
