@@ -19,7 +19,6 @@ jobs:
       - name: Detect Directory Changes
         id: detect
         uses: tchupp/actions-detect-directory-changes@v0.1.8
-        included-paths: "./examples/*"
 
   build:
     name: "Build sub-projects"
@@ -34,5 +33,3 @@ jobs:
       - name: Build ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
         run: echo "${{ matrix.project }} directory changed!"
-
-      - run: echo "Changed Directories: ${{needs.detect-directory-changes.outputs.changed}}"
