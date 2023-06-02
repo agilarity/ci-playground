@@ -19,6 +19,7 @@ jobs:
       - name: Detect Directory Changes
         id: detect
         uses: tchupp/actions-detect-directory-changes@v0.1.8
+        included-paths: "./examples/*"
 
   build:
     name: "Build sub-projects"
@@ -32,4 +33,4 @@ jobs:
 
       - name: Build ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
-        run: echo echo "{project]}={working-directory}" >> $GITHUB_OUTPUT
+        run: echo "RUN TEST" >> $GITHUB_OUTPUT
