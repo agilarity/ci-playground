@@ -20,8 +20,8 @@ jobs:
         id: detect
         uses: tchupp/actions-detect-directory-changes@v0.1.8
 
-  build:
-    name: Build sub-projects Job
+  test:
+    name: Test Projects Job
     runs-on: ubuntu-latest
     strategy:
       matrix:
