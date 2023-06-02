@@ -32,4 +32,4 @@ jobs:
 
       - name: Build ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
-        run: echo DEBUG: Directory Changed!
+        run: echo Directory Changed!
