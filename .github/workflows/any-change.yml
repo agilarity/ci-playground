@@ -20,7 +20,7 @@ jobs:
         id: detect
         uses: tchupp/actions-detect-directory-changes@v0.1.8
 
-  test:
+  build:
     name: Test Projects Job
     runs-on: ubuntu-latest
     strategy:
@@ -32,4 +32,4 @@ jobs:
 
       - name: Build ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
-        run: echo Directory Changed!
+        run: echo $(pwd)
