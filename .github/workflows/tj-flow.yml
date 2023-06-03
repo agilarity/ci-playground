@@ -49,3 +49,11 @@ jobs:
         run: |
           echo "One or more files in the examples folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+
+      # Verify the examples that changed
+      - name: Get changed example files
+        id: changed-files
+        uses: tj-actions/changed-files@v36
+
+      - name: Verify all changed examples
+        run: ./run.sh ${{ steps.changed-files.outputs.all_changed_files }}
