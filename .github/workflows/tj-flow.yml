@@ -54,6 +54,9 @@ jobs:
       - name: Get changed example files
         id: changed-example-files
         uses: tj-actions/changed-files@v36
+        with:
+          files: examples
 
-      - name: Verify all changed examples
-        run: ./run.sh ${{ steps.changed-files.outputs.all_changed_files }}
+      - name: Only verify examples that changed
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: ./verify-examples.sh ${{ steps.changed-files.outputs.all_changed_files }}
