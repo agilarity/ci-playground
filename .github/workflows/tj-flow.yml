@@ -52,7 +52,7 @@ jobs:
 
       # Verify the examples that changed
       - name: Get changed example files
-        id: changed-files
+        id: changed-example-files
         uses: tj-actions/changed-files@v36
 
       - name: Verify all changed examples
