@@ -38,7 +38,7 @@ jobs:
           done
 
       # Example 2
-      - name: Get changed files in the docs folder
+      - name: Get changed files in the example folder
         id: changed-files-specific
         uses: tj-actions/changed-files@v36
         with:
@@ -50,15 +50,18 @@ jobs:
           echo "One or more files in the examples folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
-      # Show changed directori
-      - name: Get changed directories for examples
+      # Example 3
+      - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v36
         with:
-          files: examples/*
           dir_names: "true"
 
-      - name: List all changed example directories
+        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
+        # with:
+        #   since_last_remote_commit: true
+
+      - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
