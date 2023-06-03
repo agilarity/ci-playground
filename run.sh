@@ -2,6 +2,10 @@
 
 files=".github/workflows/tj-flow.yml examples/project-a/r1 examples/project-b/README.md examples/project-a/r2 examples/project-b/r1 examples/project-a/r2"
 
+if [ ! -z $1 ]; then
+    files=$@
+fi
+
 example_file_directories=$(
     for file in $files; do
         echo $file | grep -o1 -Ei "^examples\/.*\/"
