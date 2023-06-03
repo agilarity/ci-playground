@@ -19,6 +19,11 @@ for dir in "${example_directories[@]}"; do
     unique_example_directories[$dir]=0
 done
 
+working_directory=$(pwd)
 for dir in ${!unique_example_directories[@]}; do
     echo "Verifying $dir"
+    cd $dir
+    echo Show files to simulate verification
+    ls .
+    cd $working_directory
 done
