@@ -42,23 +42,10 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v36
         with:
-          files: examples
+          files: examples # Alternatively using: `docs/**` or `docs`
 
       - name: Run step if any file(s) in the docs folder change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          example_file_directories=$(
-              for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-                  echo $file | grep -o1 -Ei "^examples\/.*\/"
-              done
-          )
-
-          declare -a example_directories=($example_file_directories)
-          declare -A unique_example_directories
-          for dir in "${example_directories[@]}"; do
-              unique_example_directories[$dir]=0
-          done
-
-          for dir in ${!unique_example_directories[@]}; do
-              echo "Verifying $dir"
-          done
+          echo "One or more files in the examples folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
