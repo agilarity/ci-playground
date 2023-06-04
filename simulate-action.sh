@@ -23,9 +23,9 @@ working_directory=$(pwd)
 echo Simulate actions from $(pwd)
 for dir in $files; do
     echo
-    echo Performing pwd action for $dir
+    echo Performing ls action for $dir
     cd $dir
-    pwd
+    ls .
     cd $working_directory
 done
 echo
