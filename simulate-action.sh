@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Test Data
+# Support local testing
 files=".github/workflows examples/project-a examples/project-b"
 
 if [ ! -z $1 ]; then
     files=$@
+else
+    echo Verifying with test data
 fi
 
 example_file_directories=$(

@@ -48,7 +48,7 @@ jobs:
         shell: bash
 
       - name: Run action for example subdirectories that changed if no common changes
-        if: "!contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
+        if: "steps.changed-example-dirs.outputs.any_changed && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
           ./simulate-action.sh ${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}
         shell: bash
