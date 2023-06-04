@@ -1,0 +1,48 @@
+name: Test tj-actions/changed-file
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get files that changed
+        id: changed-files
+        uses: tj-actions/changed-files@v36
+
+      - name: Show example files that changed
+        run: |
+          echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
+        shell: bash
+
+      - name: Get example files that changed
+        id: changed-example-files
+        uses: tj-actions/changed-files@v36
+
+      - name: Show example files that changed
+        run: |
+          echo '${{ toJSON(steps.changed-example-files.outputs.all_changed_files) }}'
+        shell: bash
+
+      - name: Get example directories that changed
+        id: changed-example-dirs
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples/*
+          dir_names: "true"
+
+      - name: Show example directories that changed
+        run: |
+          echo '${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}'
+        shell: bash
