@@ -29,20 +29,27 @@ jobs:
       - name: Get example files that changed
         id: changed-example-files
         uses: tj-actions/changed-files@v36
+        with:
+          files: examples
 
       - name: Show example files that changed
         run: |
           echo '${{ toJSON(steps.changed-example-files.outputs.all_changed_files) }}'
         shell: bash
 
-      - name: Get example directories that changed
+      - name: Get example subdirectories that changed
         id: changed-example-dirs
         uses: tj-actions/changed-files@v36
         with:
           files: examples/*
           dir_names: "true"
 
-      - name: Show example directories that changed
+      - name: Show example subdirectories that changed
         run: |
           echo '${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}'
+        shell: bash
+
+      - name: Run action for example subdirectories that changed
+        run: |
+          simulate-action ${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}
         shell: bash
