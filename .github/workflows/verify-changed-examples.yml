@@ -63,7 +63,7 @@ jobs:
 
       # Example 2A
       - name: Get changed dirs in the example folder
-        id: changed-dirs-specific
+        id: changed-example-dirs
         uses: tj-actions/changed-files@v36
         with:
           files: examples # Alternatively using: `docs/**` or `docs`
@@ -71,5 +71,5 @@ jobs:
 
       - name: Show dir output
         run: |
-          echo '${{ toJSON(steps.changed-files-dir-names-exclude-root.outputs) }}'
+          echo '${{ toJSON(steps.changed-example-dirs.outputs) }}'
         shell: bash
