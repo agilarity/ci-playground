@@ -67,10 +67,9 @@ jobs:
         uses: tj-actions/changed-files@v36
         with:
           files: examples # Alternatively using: `docs/**` or `docs`
-          dir_names: true
+          dir_names: "true"
 
-      - name: List all changed dirs
+      - name: Show dir output
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+          echo '${{ toJSON(steps.changed-files-dir-names-exclude-root.outputs) }}'
+        shell: bash
