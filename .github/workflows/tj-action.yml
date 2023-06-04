@@ -14,8 +14,6 @@ jobs:
     name: Test changed-files
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Get files that changed
         id: changed-files
