@@ -66,10 +66,10 @@ jobs:
         id: changed-example-dirs
         uses: tj-actions/changed-files@v36
         with:
-          files: examples # Alternatively using: `docs/**` or `docs`
+          files: examples/*
           dir_names: "true"
 
-      - name: Show dir output
+      - name: Show exmaple directories that changed
         run: |
           echo '${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}'
         shell: bash
