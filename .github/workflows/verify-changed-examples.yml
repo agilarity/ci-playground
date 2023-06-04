@@ -71,5 +71,5 @@ jobs:
 
       - name: Show dir output
         run: |
-          echo '${{ toJSON(steps.changed-example-dirs.outputs) }}'
+          echo '${{ toJSON(steps.changed-example-dirs.outputs.all_changed_files) }}'
         shell: bash
