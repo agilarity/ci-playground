@@ -60,3 +60,17 @@ jobs:
       - name: Only verify examples that changed
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: ./verify-examples.sh ${{ steps.changed-files.outputs.all_changed_files }}
+
+      # Example 2A
+      - name: Get changed dirs in the example folder
+        id: changed-dirs-specific
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples # Alternatively using: `docs/**` or `docs`
+          dir_names: true
+
+      - name: List all changed dirs
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
