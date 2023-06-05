@@ -16,5 +16,6 @@ jobs:
     uses: ./.github/workflows/w-b.yml
     with:
       config-path: .github/labeler.yml
+      target: dev
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

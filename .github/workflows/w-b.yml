@@ -6,12 +6,16 @@ on:
       config-path:
         required: true
         type: string
+      target:
+        required: true
+        type: string
     secrets:
       token:
         required: true
 
 jobs:
   test:
+    name: Show parameters for ${{ matrix.target }}
     runs-on: ubuntu-latest
     steps:
       - run: |
