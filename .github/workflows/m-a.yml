@@ -16,4 +16,4 @@ jobs:
         project_dir: [dev, stage, prod]
     uses: ./.github/workflows/w-b.yml
     with:
-      project_dir: $${{ matrix.project_dir }}
+      project_dir: ${{ matrix.project_dir }}
