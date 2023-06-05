@@ -13,7 +13,7 @@ jobs:
     name: Matrix caller
     strategy:
       matrix:
-        target: [dev, stage, prod]
+        project_dir: [dev, stage, prod]
     uses: ./.github/workflows/w-b.yml
     with:
-      target: $${{ matrix.target }}
+      project_dir: $${{ matrix.project_dir }}
