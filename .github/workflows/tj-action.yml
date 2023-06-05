@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  MaybeVerifyExamples:
+  build:
     runs-on: ubuntu-latest
     name: Test changed-files
     steps:
