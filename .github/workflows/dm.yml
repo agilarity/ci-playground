@@ -6,30 +6,23 @@ on:
         description: provide all OS in stringified array format
         required: true
         default: "'ubuntu-latest','windows-latest'"
-      NODE_VERSION:
-        description: provide all node versions in stringified array format
-        required: true
-        default: "'10','16'"
 jobs:
   prebuild:
     runs-on: ubuntu-latest
     outputs:
       os: ${{ steps.set-matrix.outputs.os }}
-      nodeVersion: ${{ steps.set-matrix.outputs.nodeVersion }}
     steps:
       - id: set-matrix
         run: |
           run: echo "{os}={${{format('[{0}]',github.event.inputs.OS)}}}" >> $GITHUB_OUTPUT
-          run: echo "{nodeVersion}={${{format('[{0}]',github.event.inputs.NODE_VERSION)}}}" >> $GITHUB_OUTPUT
   build:
     needs: prebuild
     runs-on: ubuntu-latest
-    name: "${{ matrix.OS }} ${{ matrix.NODE_VERSION }}"
+    name: "${{ matrix.OS }}"
     strategy:
       fail-fast: false
       matrix:
         OS: ${{fromJSON(needs.prebuild.outputs.os)}}
-        NODE_VERSION: ${{fromJSON(needs.prebuild.outputs.nodeVersion)}}
     steps:
       - name: running
-        run: echo "running job with ${{ matrix.OS }} ${{ matrix.NODE_VERSION }}"
+        run: echo "running job with ${{ matrix.OS }}"
