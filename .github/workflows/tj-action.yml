@@ -53,12 +53,8 @@ jobs:
           ./simulate-action.sh steps.changed-example-dirs.outputs.all_changed_files
         shell: bash
 
-      - name: Run action or echo on example change
-        if: "changed-example-files.outputs.any_changed == 'true'"
+      - name: Run action on common change
+        if: "contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
-        if [contains(${{steps.changed-example-dirs.outputs.all_changed_files}}, 'examples/common')]; then
-          echo Run all
-        else
-          ./simulate-action.sh ${{steps.changed-example-dirs.outputs.all_changed_files}}
-        fi
-      shell: bash
+          echo Simulate action on common change
+        shell: bash
