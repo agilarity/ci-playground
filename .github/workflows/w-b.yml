@@ -3,15 +3,9 @@ name: Reusable workflow example
 on:
   workflow_call:
     inputs:
-      config-path:
+      project_dir:
         required: true
         type: string
-      target:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: true
 
 jobs:
   test:
@@ -19,6 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Target: ${{ inputs.target }}"
-          echo "Token: ${{ secrets.token }}"
-          echo "Path: ${{ inputs.config-path }}"
+          echo "Project directory: ${{ inputs.project_dir }}"

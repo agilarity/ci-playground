@@ -10,12 +10,6 @@ on:
 
 jobs:
   call-workflow-passing-data:
-    permissions:
-      contents: read
-      pull-requests: write
     uses: ./.github/workflows/w-b.yml
     with:
-      config-path: .github/labeler.yml
-      target: dev
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      project_dir: dev
