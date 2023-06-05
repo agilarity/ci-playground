@@ -4,7 +4,7 @@
 files=".github/workflows examples/project-a examples/project-b"
 
 if [ ! -z $1 ]; then
-    files=$@
+    files="$@"
 else
     echo Verifying with test data
 fi
