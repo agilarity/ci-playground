@@ -50,7 +50,7 @@ jobs:
       - name: Run action for example subdirectories that changed if no common changes
         if: "steps.changed-example-dirs.outputs.any_changed == 'true' && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
-          ./simulate-action.sh steps.changed-example-dirs.outputs.all_changed_files
+          ./simulate-action.sh ${{steps.changed-example-dirs.outputs.all_changed_files}}
         shell: bash
 
       - name: Run action on common change
