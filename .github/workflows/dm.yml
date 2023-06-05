@@ -19,8 +19,8 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "::set-output name=os::${{format('[{0}]',github.event.inputs.OS)}}"
-          echo "::set-output name=nodeVersion::${{format('[{0}]',github.event.inputs.NODE_VERSION)}}"
+          run: echo "{os}={${{format('[{0}]',github.event.inputs.OS)}}}" >> $GITHUB_STATE
+          run: echo "{nodeVersion}={${{format('[{0}]',github.event.inputs.NODE_VERSION)}}}" >> $GITHUB_STATE
   build:
     needs: prebuild
     runs-on: ubuntu-latest
