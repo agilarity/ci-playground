@@ -19,7 +19,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v36
 
-      - name: Show example files that changed
+      - name: Show files that changed
         run: |
           echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
         shell: bash
@@ -48,7 +48,7 @@ jobs:
         shell: bash
 
       - name: Run action for example subdirectories that changed if no common changes
-        if: "steps.changed-example-dirs.outputs.any_changed && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
+        if: "steps.changed-example-dirs.outputs.any_changed == 'true' && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
           ./simulate-action.sh steps.changed-example-dirs.outputs.all_changed_files
         shell: bash
