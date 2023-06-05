@@ -1,0 +1,26 @@
+name: Call a reusable workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-with-matrix:
+    name: Matrix caller
+    strategy:
+      matrix:
+        target: [dev, stage, prod]
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/w-b.yml
+      config-path: .github/labeler.yml
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      target: $${{ matrix.target }}
+

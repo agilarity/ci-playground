@@ -11,9 +11,10 @@ on:
         required: true
 
 jobs:
-  triage:
+  test:
     runs-on: ubuntu-latest
     steps:
       - run: |
+          echo "Target: ${{ matrix.target }}"
           echo "Token: ${{ secrets.token }}"
           echo "Path: ${{ inputs.config-path }}"
