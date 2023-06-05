@@ -14,8 +14,8 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "::set-output name=os::${{format('[{0}]',github.event.inputs.OS)}}"
-          # run: echo "{os}={${{format('[{0}]',github.event.inputs.OS)}}}" >> $GITHUB_OUTPUT
+          # echo "::set-output name=os::${{format('[{0}]',github.event.inputs.OS)}}"
+          echo "os=${{format('[{0}]',github.event.inputs.OS)}}" >> $GITHUB_OUTPUT
   build:
     needs: prebuild
     runs-on: ubuntu-latest
