@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Show parameters for ${{ inputs.target }}
+    name: Show parameters for ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
       - run: |
