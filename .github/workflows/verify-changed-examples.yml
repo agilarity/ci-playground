@@ -9,6 +9,28 @@ on:
       - main
 
 jobs:
+  detect-changes:
+    name: Detect Changes
+    steps:
+      - name: Get file changes for example directory
+        id: changed-example-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples
+      - name: Show example directory files that changed
+        run: |
+          echo '${{ toJSON(steps.changed-example-files.outputs.all_changed_files) }}'
+        shell: bash
+      - name: Get file changes for ${{ inputs.project_dir }} directory
+        id: changed-project-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples/${{ inputs.project_dir }}
+      - name: Show ${{ inputs.project_dir }} files that changed
+        run: |
+          echo '${{ toJSON(steps.changed-project-files.outputs.all_changed_files) }}'
+        shell: bash
+
   call-with-matrix:
     name: Verify Changed Examples
     strategy:
