@@ -1,4 +1,4 @@
-name: Verify All Examples Caller
+name: Verify All Examples
 
 on:
   push:
