@@ -50,14 +50,13 @@ jobs:
       - name: Run action for example subdirectories that changed if no common changes
         if: "steps.changed-example-dirs.outputs.any_changed == 'true' && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
-          echo Simulate actions from $(pwd)
-          echo List contents
-          ls examples
           for dir in ${{steps.changed-example-dirs.outputs.all_changed_files}}; do
               echo
-              echo Performing pwd action for $dir
+              echo Starting from $(pwd)
+              ls examples
+              echo Moving to $dir
               cd $dir
-              pwd
+              echo Moved to $(pwd)
               echo List contents
               ls .
               cd $working_directory
