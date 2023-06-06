@@ -52,14 +52,14 @@ jobs:
         run: |
           echo Simulate actions from $(pwd)
           echo List contents
-          ls .
+          ls examples
           for dir in ${{steps.changed-example-dirs.outputs.all_changed_files}}; do
               echo
               echo Performing pwd action for $dir
               cd $dir
               pwd
               echo List contents
-              ls .
+              ls examples
               cd $working_directory
           done
         shell: bash
