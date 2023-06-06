@@ -15,13 +15,15 @@ jobs:
     name: Verify ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Report unchange status
+        run: |
           echo Verifying ${{ inputs.project_dir }}
           if ${{ inputs.verify_unchanged }}; then
             echo "Verify always (${{ inputs.verify_unchanged }})"
           else
             echo "Verify only if changed (${{ inputs.verify_unchanged }})"
           fi
+        shell: bash
       - uses: actions/checkout@v3
       - name: Get files that changed
         id: changed-files
@@ -68,4 +70,23 @@ jobs:
           echo Move to examples/${{ inputs.project_dir }}
           cd examples/${{ inputs.project_dir }}
           ls .
+        shell: bash
+
+      - name: Simulate verification of ${{ inputs.project_dir }}
+        run: |
+          if ${{ inputs.verify_unchanged }}; then
+            echo "Verify regardless of change (${{ inputs.verify_unchanged }})"
+            echo Move to examples/${{ inputs.project_dir }}
+            cd examples/${{ inputs.project_dir }}
+            ls .
+          else
+            echo "Verify only if changed (${{ inputs.verify_unchanged }})"
+            if ${{ steps.changed-project-files.outputs.any_changed }}; then
+              echo Move to examples/${{ inputs.project_dir }}
+              cd examples/${{ inputs.project_dir }}
+              ls .
+            else
+              echo "Skipping of ${{ inputs.project_dir }} verification because no changes were found"
+            fi
+          fi
         shell: bash
