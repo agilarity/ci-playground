@@ -1,4 +1,4 @@
-name: Verify Examples Caller
+name: Verify All Examples Caller
 
 on:
   push:
@@ -10,11 +10,11 @@ on:
 
 jobs:
   call-with-matrix:
-    name: Verify Examples
+    name: Verify All Examples
     strategy:
       matrix:
         project_dir: [dev, stage, prod]
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
-      verify_unchanged: false
+      verify_unchanged: true
