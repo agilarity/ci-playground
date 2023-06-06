@@ -59,7 +59,7 @@ jobs:
               cd $dir
               pwd
               echo List contents
-              ls examples
+              ls .
               cd $working_directory
           done
         shell: bash
