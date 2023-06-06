@@ -50,12 +50,13 @@ jobs:
       - name: Run action for example subdirectories that changed if no common changes
         if: "steps.changed-example-dirs.outputs.any_changed == 'true' && !contains(steps.changed-example-dirs.outputs.all_changed_files, 'examples/common')"
         run: |
-          for dir in ${{steps.changed-example-dirs.outputs.all_changed_files}}; do
+          for dir in ${{steps.changed-example-dirs.outputs.
+          root_dir=$(pwd)
+          all_changed_files}}; do
               echo
-              ls .
               echo Moving to $dir
               ls $dir
-              cd ../..
+              cd $root_dir
           done
         shell: bash
 
