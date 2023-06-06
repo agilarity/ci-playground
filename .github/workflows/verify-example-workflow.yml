@@ -49,7 +49,15 @@ jobs:
         with:
           files: examples/${{ inputs.project_dir }}
 
-      - name: Show example subdirectories that changed
+      - name: Show ${{ inputs.project_dir }} files that changed
         run: |
           echo '${{ toJSON(steps.changed-project-files.outputs.all_changed_files) }}'
+        shell: bash
+
+      - name: Verify ${{ inputs.project_dir }} if changed
+        if: "${{ inputs.verify_unchanged }} === 'false' && ${{steps.changed-project-files.outputs.any_changed}} == 'true'"
+        run: |
+          echo Move to examples/${{ inputs.project_dir }}
+          cd examples/${{ inputs.project_dir }}
+          ls .
         shell: bash
