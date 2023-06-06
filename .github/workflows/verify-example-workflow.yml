@@ -18,9 +18,9 @@ jobs:
       - run: |
           echo Verifying ${{ inputs.project_dir }}
           if ${{ inputs.verify_unchanged }}; then
-            echo Verify always
+            echo Verify always (${{ inputs.verify_unchanged }})
           else
-            echo Verify only if changed
+            echo Verify only if changed (${{ inputs.verify_unchanged }})
           fi
       - uses: actions/checkout@v3
       - name: Get files that changed
@@ -55,7 +55,7 @@ jobs:
         shell: bash
 
       - name: Verify ${{ inputs.project_dir }} if changed
-        if: "inputs.verify_unchanged == 'false' && steps.changed-project-files.outputs.any_changed == 'true'"
+        if: "${{ inputs.verify_unchanged }} == 'false' && steps.changed-project-files.outputs.any_changed == 'true'"
         run: |
           echo Move to examples/${{ inputs.project_dir }}
           cd examples/${{ inputs.project_dir }}
@@ -63,7 +63,7 @@ jobs:
         shell: bash
 
       - name: Verify ${{ inputs.project_dir }} regardless of change
-        if: "inputs.verify_unchanged == 'true'"
+        if: "${{ inputs.verify_unchanged }} == 'true'"
         run: |
           echo Move to examples/${{ inputs.project_dir }}
           cd examples/${{ inputs.project_dir }}
