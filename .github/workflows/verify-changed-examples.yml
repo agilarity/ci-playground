@@ -11,6 +11,8 @@ on:
 jobs:
   detect-changes:
     name: Detect Changes
+    runs-on: ubuntu-latest
+    name: Detect Changes
     steps:
       - name: Get file changes for example directory
         id: changed-example-files
@@ -30,7 +32,6 @@ jobs:
         run: |
           echo '${{ toJSON(steps.changed-project-files.outputs.all_changed_files) }}'
         shell: bash
-
   call-with-matrix:
     name: Verify Changed Examples
     strategy:
