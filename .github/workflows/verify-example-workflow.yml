@@ -6,6 +6,9 @@ on:
       project_dir:
         required: true
         type: string
+      verify_unchanged:
+        required: true
+        type: boolean
 
 jobs:
   test:
@@ -13,4 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Verifying ${{ inputs.project_dir }}"
+          echo Verifying ${{ inputs.project_dir }}
+          if ${{ inputs.verify_uncahnged }}; then
+            echo Verify unchanged examples
+          else
+            echo Only verify examples that changed
+          fi
