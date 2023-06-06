@@ -1,0 +1,20 @@
+name: Verify Changed Examples Caller
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-with-matrix:
+    name: Verify Changed Examples
+    strategy:
+      matrix:
+        project_dir: [dev, stage, prod]
+    uses: ./.github/workflows/verify-example-workflow.yml
+    with:
+      project_dir: ${{ matrix.project_dir }}
+      verify_unchanged: false
