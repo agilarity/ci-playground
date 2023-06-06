@@ -55,7 +55,7 @@ jobs:
         shell: bash
 
       - name: Verify ${{ inputs.project_dir }} if changed
-        if: "${{ inputs.verify_unchanged }} == 'false' && steps.changed-project-files.outputs.any_changed == 'true'"
+        if: "${{ inputs.verify_unchanged == 'false' && steps.changed-project-files.outputs.any_changed == 'true' }} "
         run: |
           echo Move to examples/${{ inputs.project_dir }}
           cd examples/${{ inputs.project_dir }}
@@ -63,7 +63,7 @@ jobs:
         shell: bash
 
       - name: Verify ${{ inputs.project_dir }} regardless of change
-        if: "${{ inputs.verify_unchanged }} == 'true'"
+        if: "${{ inputs.verify_unchanged == 'true' }}"
         run: |
           echo Move to examples/${{ inputs.project_dir }}
           cd examples/${{ inputs.project_dir }}
