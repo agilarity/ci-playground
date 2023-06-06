@@ -1,4 +1,3 @@
 # project-a
 
-foo
-
+baz
