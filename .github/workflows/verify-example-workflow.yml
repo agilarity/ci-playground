@@ -18,9 +18,9 @@ jobs:
       - run: |
           echo Verifying ${{ inputs.project_dir }}
           if ${{ inputs.verify_unchanged }}; then
-            echo Verify always (${{ inputs.verify_unchanged }})
+            echo "Verify always (${{ inputs.verify_unchanged }})"
           else
-            echo Verify only if changed (${{ inputs.verify_unchanged }})
+            echo "Verify only if changed (${{ inputs.verify_unchanged }})"
           fi
       - uses: actions/checkout@v3
       - name: Get files that changed
