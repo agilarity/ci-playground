@@ -17,7 +17,7 @@ jobs:
     steps:
       - run: |
           echo Verifying ${{ inputs.project_dir }}
-          if ${{ inputs.verify_uncahnged }}; then
+          if ${{ inputs.verify_unchanged }}; then
             echo Verify unchanged examples
           else
             echo Only verify examples that changed
