@@ -31,3 +31,25 @@ jobs:
         run: |
           echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
         shell: bash
+
+      - name: Get example files that changed
+        id: changed-example-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples
+
+      - name: Show example files that changed
+        run: |
+          echo '${{ toJSON(steps.changed-example-files.outputs.all_changed_files) }}'
+        shell: bash
+
+      - name: Get ${{ inputs.project_dir }} files that changed
+        id: changed-project-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples/${{ inputs.project_dir }}
+
+      - name: Show example subdirectories that changed
+        run: |
+          echo '${{ toJSON(steps.changed-project-files.outputs.all_changed_files) }}'
+        shell: bash

@@ -13,7 +13,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: [dev, stage, prod]
+        project_dir: [project-a, project-b]
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
