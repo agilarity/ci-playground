@@ -52,14 +52,9 @@ jobs:
         run: |
           for dir in ${{steps.changed-example-dirs.outputs.all_changed_files}}; do
               echo
-              echo Starting from $(pwd)
-              ls examples
-              echo Moving to $dir
+              echo Moving to $dir from $(pwd)
               cd $dir
-              echo Moved to $(pwd)
-              echo List contents
-              ls .
-              cd $working_directory
+              cd ../..
           done
         shell: bash
 
