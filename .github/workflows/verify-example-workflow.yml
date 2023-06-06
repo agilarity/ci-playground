@@ -1,0 +1,16 @@
+name: Verify Example Workflow
+
+on:
+  workflow_call:
+    inputs:
+      project_dir:
+        required: true
+        type: string
+
+jobs:
+  test:
+    name: Verify ${{ inputs.project_dir }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Verifying ${{ inputs.project_dir }}"

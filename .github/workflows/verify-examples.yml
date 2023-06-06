@@ -1,0 +1,19 @@
+name: Verify Examples
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-with-matrix:
+    name: Verify Examples Caller
+    strategy:
+      matrix:
+        project_dir: [dev, stage, prod]
+    uses: ./.github/workflows/verify-example-workflow.yml
+    with:
+      project_dir: ${{ matrix.project_dir }}
