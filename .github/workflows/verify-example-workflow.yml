@@ -1,4 +1,4 @@
-name: Verify Example Subflow
+name: CI
 
 on:
   workflow_call:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    name: Verify ${{ inputs.project_dir }} example
+    name: Verify ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
       # Assess changes

@@ -1,4 +1,4 @@
-name: Verify Changed Examples
+name: CI Examples
 
 on:
   push:
@@ -18,11 +18,14 @@ jobs:
       - name: Get projects that changed
         id: changed-projects
         uses: tj-actions/changed-files@v36
+        with:
+          json: "true"
 
       - name: Show projects that changed
         run: |
-          echo '${{ steps.changed-projects.outputs.all_changed_files }}'
+          echo '${{ fromJson(steps.changed-projects.outputs.all_changed_files) }}'
         shell: bash
+
   for-each-project:
     needs:
       - create-list
