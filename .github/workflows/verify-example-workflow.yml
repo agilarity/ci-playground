@@ -25,6 +25,7 @@ jobs:
       - name: Show files that changed
         run: |
           echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
+          echo ${{ steps.changed-files.outputs.all_changed_files.json }}]'
         shell: bash
 
       - name: Get example files that changed
