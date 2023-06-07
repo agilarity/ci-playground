@@ -49,10 +49,6 @@ jobs:
           echo '${{ toJSON(steps.changed-projects.outputs.all_changed_files) }}'
         shell: bash
 
-      - name: Show projects that changed (from json)
-        run: |
-          echo '${{ fromJSON(steps.changed-projects.outputs.all_changed_files) }}'
-        shell: bash
   for-each-project:
     needs:
       - create-list
@@ -60,7 +56,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: [project-a, project-b]
+        project_dir: ${{ toJSON(steps.changed-projects.outputs.all_changed_files) }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
