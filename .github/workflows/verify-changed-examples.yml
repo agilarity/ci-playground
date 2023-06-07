@@ -20,10 +20,10 @@ jobs:
         uses: tj-actions/changed-files@v36
         with:
           files: examples
-          dir_names: true
-          dir_names_exclude_current_dir: true
-          json: true
-          json_raw_format: true
+          dir_names: "true"
+          dir_names_exclude_current_dir: "true"
+          json: "true"
+          json_raw_format: "true"
 
       - name: Show projects that changed
         run: |
