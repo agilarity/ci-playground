@@ -12,6 +12,9 @@ jobs:
   create-list:
     name: Find changes
     runs-on: ubuntu-latest
+    outputs:
+      project_dirs: ${{ steps.changed-projects.outputs.all_changed_files }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -56,7 +59,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: ${{ steps.changed-projects.outputs.all_changed_files }}
+        project_dir: ${{ needs.create-list.outputs.project_dirs }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
