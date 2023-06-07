@@ -19,7 +19,9 @@ jobs:
         id: changed-projects
         uses: tj-actions/changed-files@v36
         with:
+          files: examples
           dir_names: "true"
+          dir_names_exclude_current_dir = "true"
           json: "true"
 
       - name: Show projects that changed
