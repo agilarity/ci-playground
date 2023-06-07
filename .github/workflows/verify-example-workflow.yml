@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Assess changes
+      - uses: actions/checkout@v3
+
       - name: Get files that changed
         id: changed-files
         uses: tj-actions/changed-files@v36
