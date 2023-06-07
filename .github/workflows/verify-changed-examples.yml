@@ -20,6 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v36
         with:
           dir_names: "true"
+          json: "true"
 
       - name: Show projects that changed
         run: |
