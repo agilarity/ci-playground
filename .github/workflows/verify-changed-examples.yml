@@ -59,7 +59,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: ${{ needs.create-list.outputs.project_dirs }}
+        project_dir: ${{ fromJSON(needs.create-list.outputs.project_dirs) }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
