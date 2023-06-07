@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  generate_project_list:
+  create-list:
     name: Find changes
     runs-on: ubuntu-latest
     steps:
@@ -26,9 +26,10 @@ jobs:
         run: |
           echo '${{ fromJSON(steps.changed-projects.outputs.all_changed_files) }}'
         shell: bash
-  for_each_project:
+  for-each-project:
     needs:
-      - generate-project-list
+      - create-list
+
     name: Verify Changed Examples
     strategy:
       matrix:
