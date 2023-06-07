@@ -9,11 +9,30 @@ on:
       - main
 
 jobs:
-  call-with-matrix:
+  generate_project_list:
+    name: Find changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get projects that changed
+        id: changed-projects
+        uses: tj-actions/changed-files@v36
+        with:
+          - dir_names: "true"
+          - json: "true"
+
+      - name: Show projects that changed
+        run: |
+          echo '${{ fromJSON(steps.changed-projects.outputs.all_changed_files) }}'
+        shell: bash
+  for_each_project:
+    needs:
+      - generate-project-list
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: [project-a, project-b]
+        project_dir: ${{ fromJSON(steps.changed-projects.outputs.all_changed_files) }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}

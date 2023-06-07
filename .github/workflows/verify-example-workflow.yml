@@ -21,14 +21,10 @@ jobs:
       - name: Get files that changed
         id: changed-files
         uses: tj-actions/changed-files@v36
-        with:
-          json: "true"
 
       - name: Show files that changed
         run: |
           echo '${{ toJSON(steps.changed-files.outputs.all_changed_files) }}'
-          echo Show json
-          echo ${{ steps.changed-files.outputs.all_changed_files }}
         shell: bash
 
       - name: Get example files that changed
