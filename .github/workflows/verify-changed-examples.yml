@@ -36,7 +36,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: [project-a, project-b]
+        project_dir: ${{ steps.changed-projects.outputs.all_changed_files }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
