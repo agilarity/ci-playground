@@ -1,3 +1,3 @@
 # project-b
 
-fuz
+foo

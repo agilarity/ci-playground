@@ -1,0 +1,56 @@
+name: CI Examples
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  create-list:
+    name: Find changes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      # Show all changes
+      - name: Get changed directories
+        id: changed-dirs
+        uses: tj-actions/changed-files@v36
+        with:
+          dir_names: "true"
+          json: "true"
+
+      - name: Show directories that changed
+        run: |
+          echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
+        shell: bash
+
+      # Show example changes
+      - name: Get projects that changed
+        id: changed-projects
+        uses: tj-actions/changed-files@v36
+        with:
+          files: examples
+          dir_names: "true"
+          json: "true"
+
+      - name: Show projects that changed
+        run: |
+          echo '${{ steps.changed-projects.outputs.all_changed_files }}'
+        shell: bash
+
+  for-each-project:
+    needs:
+      - create-list
+
+    name: Verify Changed Examples
+    strategy:
+      matrix:
+        project_dir: [project-a, project-b]
+    uses: ./.github/workflows/verify-example-workflow.yml
+    with:
+      project_dir: ${{ matrix.project_dir }}
+      verify_unchanged: false
