@@ -58,8 +58,8 @@ jobs:
             cd examples/${{ inputs.project_dir }}
             ls .
           else
-            echo "Verifying because something changed"
             if ${{ steps.changed-project-files.outputs.any_changed }}; then
+              echo "Verifying because something changed"
               echo Move to examples/${{ inputs.project_dir }}
               cd examples/${{ inputs.project_dir }}
               ls .
