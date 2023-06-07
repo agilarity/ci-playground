@@ -56,7 +56,7 @@ jobs:
     name: Verify Changed Examples
     strategy:
       matrix:
-        project_dir: ${{ toJSON(steps.changed-projects.outputs.all_changed_files) }}
+        project_dir: ${{ steps.changed-projects.outputs.all_changed_files }}
     uses: ./.github/workflows/verify-example-workflow.yml
     with:
       project_dir: ${{ matrix.project_dir }}
