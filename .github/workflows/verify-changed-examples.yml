@@ -19,11 +19,11 @@ jobs:
         id: changed-projects
         uses: tj-actions/changed-files@v36
         with:
-          json: "true"
+          dir_names: "true"
 
       - name: Show projects that changed
         run: |
-          echo '${{ fromJson(steps.changed-projects.outputs.all_changed_files) }}'
+          echo '${{ toJson(steps.changed-projects.outputs.all_changed_files) }}'
         shell: bash
 
   for-each-project:
