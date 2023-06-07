@@ -24,7 +24,7 @@ jobs:
 
       - name: Show projects that changed
         run: |
-          echo '${{ fromJson(steps.changed-projects.outputs.all_changed_files) }}'
+          echo '${{ steps.changed-projects.outputs.all_changed_files }}'
         shell: bash
 
   for-each-project:
