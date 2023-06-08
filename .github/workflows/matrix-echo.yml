@@ -42,6 +42,6 @@ jobs:
       fail-fast: false
 
   call-echo:
-    uses: "./echo-project.yml"
+    uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}
