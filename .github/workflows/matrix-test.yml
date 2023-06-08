@@ -21,7 +21,9 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v36
         with:
-          file: examples
+          files: |
+            examples
+            !examples/common
           json: true
           quotepath: false
       - name: List all changed files
