@@ -1,4 +1,4 @@
-name: Matrix Test
+name: Verify Examples
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   changed-dirs:
-    name: Get changes
+    name: Get Changed Examples
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Get changed files
+      - name: Get changed examples
         id: changed-dirs
         uses: tj-actions/changed-files@v36
         with:
@@ -27,13 +27,13 @@ jobs:
             !examples/common
           json: true
           quotepath: false
-      - name: List all changed files
+      - name: List changed directories
         run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
       - id: set-matrix
-        run: echo "matrix={\"container\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
-    name: Run Matrix Job
+    name: Verify
     runs-on: ubuntu-latest
     needs: [changed-dirs]
     strategy:
@@ -43,6 +43,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test
+      - name: Verify
         run: |
-          echo ${{ matrix.container }}
+          echo ${{ matrix.directory }}
