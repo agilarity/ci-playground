@@ -40,8 +40,6 @@ jobs:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
       max-parallel: 4
       fail-fast: false
-
-  call-echo:
     uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}

@@ -1,3 +1,3 @@
 # project-b
 
-blur
+foo
