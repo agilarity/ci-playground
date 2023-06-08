@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  changed-files:
+  changed-dirs:
     name: Get changes
     runs-on: ubuntu-latest
     outputs:
@@ -18,25 +18,26 @@ jobs:
         with:
           fetch-depth: 0
       - name: Get changed files
-        id: changed-files
+        id: changed-dirs
         uses: tj-actions/changed-files@v36
         with:
+          dir_names: true
           files: |
             examples
             !examples/common
           json: true
           quotepath: false
       - name: List all changed files
-        run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
+        run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
       - id: set-matrix
-        run: echo "matrix={\"container\":${{ steps.changed-files.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix={\"container\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Run Matrix Job
     runs-on: ubuntu-latest
-    needs: [changed-files]
+    needs: [changed-dirs]
     strategy:
-      matrix: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
       max-parallel: 4
       fail-fast: false
     steps:
