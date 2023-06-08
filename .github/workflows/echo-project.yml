@@ -1,0 +1,16 @@
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    inputs:
+      project_dir:
+        required: true
+        type: string
+
+jobs:
+  test:
+    name: Show parameters for ${{ inputs.project_dir }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo ${{ inputs.project_dir }}
