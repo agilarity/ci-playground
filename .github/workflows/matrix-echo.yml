@@ -34,10 +34,9 @@ jobs:
 
   matrix-job:
     name: Verify
-    runs-on: ubuntu-latest
     needs: [changed-dirs]
     strategy:
-      project_dir: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
     uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}
