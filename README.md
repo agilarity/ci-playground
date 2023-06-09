@@ -1,3 +1,3 @@
 # ci-playground
 
-bar
+foo
