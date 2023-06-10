@@ -12,4 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ inputs.project_dir }}
+          if [ "${{ inputs.project_dir }}" -eq "IGNORE_ME" ]; then
+            echo Nothing to do for this directory
+          else
+            echo ${{ inputs.project_dir }}
+          fi
