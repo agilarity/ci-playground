@@ -64,5 +64,7 @@ jobs:
 
   echo-job:
     name: Echo Any Changed
-    run: echo any_change: ${{ fromJSON(needs.changed-dirs.outputs.matrix).any_changed }}
     needs: [changed-dirs]
+    steps:
+      - name: Echo
+        run: echo any_change: ${{ fromJSON(needs.changed-dirs.outputs.matrix).any_changed }}
