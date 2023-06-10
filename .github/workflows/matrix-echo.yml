@@ -29,7 +29,9 @@ jobs:
           json: true
           quotepath: false
       - name: List changed directories
-        run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
+        run: |
+          echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
+          echo 'any_changed: ${{ steps.changed-dirs.outputs.any_changed }}'
 
       - name: Set Matrix
         if: steps.changed-dirs.outputs.any_changed == 'true'
