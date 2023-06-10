@@ -34,7 +34,7 @@ jobs:
         run: echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
-    if: false
+    if: true
     name: Verify
     needs: [changed-dirs]
     strategy:
