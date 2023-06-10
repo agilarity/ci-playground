@@ -59,6 +59,7 @@ jobs:
         run: |
           default_directory=DO_NOT_VERIFY
           echo "matrix={ \"directory\":[\"${{ default_directory }} \"] }" >> "$GITHUB_OUTPUT"
+        shell: bash
 
   matrix-job:
     name: Verify
