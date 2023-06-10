@@ -30,16 +30,15 @@ jobs:
           quotepath: false
       - name: List changed directories
         run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
-      - id: set-matrix
-        run: |
-        if ${{ steps.changed-dirs.outputs.any_changed }} == 'true'; then
-          echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
-        else
-          echo "matrix={\"directory\":[\"NO_PROJECT_CHANGED\"]}" >> "$GITHUB_OUTPUT"
-        fi
+
+      - name: Set Matrix
+        if: steps.changed-dirs.outputs.any_changed
+        id: set-matrix
+        run: echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Verify
+    if: fromJSON(needs.changed-dirs.outputs.matrix)
     needs: [changed-dirs]
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
