@@ -48,13 +48,16 @@ jobs:
           echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
 
       - name: Set Matrix
+        if: steps.changed-files.outputs.any_changed == 'true'
         id: set-matrix
         run: |
-        if ${{ steps.changed-files.outputs.any_changed }}; then
           echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
-        else
+
+      - name: Set Default Matrix
+        if: steps.changed-files.outputs.any_changed == 'false'
+        id: set-matrix
+        run: |
           echo "matrix={\"directory\":[]}" >> "$GITHUB_OUTPUT"
-        fi
 
   matrix-job:
     name: Verify
