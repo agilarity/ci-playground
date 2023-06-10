@@ -32,7 +32,7 @@ jobs:
         run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
       - id: set-matrix
         run: |
-        if ${{ steps.changed-dirs.outputs.any_changed }}; then
+        if ${{ steps.changed-dirs.outputs.any_changed }} == true; then
           echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
         else
           echo "matrix={\"directory\":[\"NO_PROJECT_CHANGED\"]}" >> "$GITHUB_OUTPUT"
