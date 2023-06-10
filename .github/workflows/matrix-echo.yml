@@ -53,10 +53,10 @@ jobs:
 
   matrix-job:
     name: Verify
-    if: fromJSON(needs.changed-dirs.outputs.matrix).any_changed == 'true'
     needs: [changed-dirs]
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
     uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}
+      any_changed: ${{ matrix.any_changed }}
