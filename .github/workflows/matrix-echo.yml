@@ -45,11 +45,9 @@ jobs:
 
       - name: List changed directories
         run: |
-          echo 'any_changed: ${{ steps.changed-dirs.outputs.any_changed }}'
           echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
 
       - name: Set Matrix
-        # if: steps.changed-files.outputs.any_changed == 'true'
         id: set-matrix
         run: echo "matrix={\"any_changed\":${{ steps.changed-files.outputs.any_changed }},\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
