@@ -49,12 +49,12 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+          echo "matrix={\"any_changed\":${{ steps.changed-files.outputs.any_changed }},\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
+    if: fromJSON(needs.changed-dirs.outputs.matrix == 'true'
     name: Verify
     needs: [changed-dirs]
-    continue-on-error: ${{ matrix.directory }}
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
 
