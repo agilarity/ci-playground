@@ -32,7 +32,7 @@ jobs:
         run: echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
 
       - name: Set Matrix
-        if: steps.changed-dirs.outputs.any_changed
+        if: steps.changed-dirs.outputs.any_changed == 'true'
         id: set-matrix
         run: echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
