@@ -55,7 +55,7 @@ jobs:
 
       - name: Set Default Matrix
         if: steps.changed-files.outputs.any_changed == 'false'
-        id: set-matrix
+        id: set-default-matrix
         run: |
           echo "matrix={\"directory\":[]}" >> "$GITHUB_OUTPUT"
 
