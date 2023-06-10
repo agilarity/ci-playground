@@ -54,10 +54,9 @@ jobs:
   matrix-job:
     name: Verify
     needs: [changed-dirs]
+    continue-on-error: ${{ matrix.directory }}
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
-        include:
-          - project_dir: IGNORE_ME
 
     uses: ./.github/workflows/echo-project.yml
     with:

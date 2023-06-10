@@ -11,4 +11,5 @@ jobs:
     name: Show parameters for ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ inputs.project_dir }}
+      - run: |
+          echo ${{ inputs.project_dir }}
