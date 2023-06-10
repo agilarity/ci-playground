@@ -28,6 +28,7 @@ jobs:
 
       - name: List changed files
         run: |
+          echo 'any_changed: ${{ steps.changed-files.outputs.any_changed }}'
           echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
       - name: Get changed examples
@@ -44,17 +45,17 @@ jobs:
 
       - name: List changed directories
         run: |
+          echo 'any_changed: ${{ steps.changed-dirs.outputs.any_changed }}'
           echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
-          echo 'any_changed: ${{ steps.changed-files.outputs.any_changed }}'
 
       - name: Set Matrix
-        if: steps.changed-files.outputs.any_changed == 'true'
+        # if: steps.changed-files.outputs.any_changed == 'true'
         id: set-matrix
-        run: echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix={\"any_changed\":${{ steps.changed-files.outputs.any_changed }},\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Verify
-    if: fromJSON(needs.changed-dirs.outputs.matrix)
+    if: fromJSON(needs.changed-dirs.outputs.matrix).any_changed == 'true'
     needs: [changed-dirs]
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
