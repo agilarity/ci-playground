@@ -49,7 +49,12 @@ jobs:
 
       - name: Set Matrix
         id: set-matrix
-        run: echo "matrix={\"any_changed\":${{ steps.changed-files.outputs.any_changed }},\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        run: |
+        if ${{ steps.changed-files.outputs.any_changed }}; then
+          echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        else
+          echo "matrix={\"directory\":[]}" >> "$GITHUB_OUTPUT"
+        fi
 
   matrix-job:
     name: Verify
@@ -59,4 +64,3 @@ jobs:
     uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}
-      any_changed: ${{ matrix.any_changed }}

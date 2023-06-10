@@ -6,15 +6,10 @@ on:
       project_dir:
         required: true
         type: string
-      any_changed:
-        required: true
-        type: boolean
-
 jobs:
   test:
     name: Show parameters for ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo $${{ inputs.any_changed }}
           echo ${{ inputs.project_dir }}
