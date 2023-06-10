@@ -44,7 +44,6 @@ jobs:
 
       - name: List changed directories
         run: |
-          echo fromJSON(needs.changed-dirs.outputs.matrix).any_changed
           echo '${{ steps.changed-dirs.outputs.all_changed_files }}'
 
       - name: Set Matrix
@@ -53,7 +52,7 @@ jobs:
           echo "matrix={\"any_changed\":${{ steps.changed-files.outputs.any_changed }},\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
-    if: fromJSON(needs.changed-dirs.outputs.matrix).any_changed
+    if: ${{ matrix.any_changed }}
     name: Verify
     needs: [changed-dirs]
     strategy:
