@@ -57,9 +57,7 @@ jobs:
         if: steps.changed-files.outputs.any_changed == 'false'
         id: set-default-matrix
         run: |
-          default_directory=DO_NOT_VERIFY
-          echo "matrix={ \"directory\":[\"${{ default_directory }} \"] }" >> "$GITHUB_OUTPUT"
-        shell: bash
+          echo "matrix={ \"directory\":[] }" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Verify
