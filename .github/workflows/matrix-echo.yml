@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-      any_changed: ${{ steps.changed-files.outputs.any_changed }}
 
     steps:
       - name: Checkout
@@ -51,15 +50,17 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+          if [${{ steps.changed-dirs.outputs.any_changed }} == 'true']; then
+            echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+          else
+            echo "matrix={\"directory\":[\\\"IGNORE_ME\\\"]}" >> "$GITHUB_OUTPUT"
+          fi
 
   matrix-job:
-    if: needs.changed-dirs.outputs.any_changed
     name: Verify
     needs: [changed-dirs]
     strategy:
       matrix: ${{ fromJSON(needs.changed-dirs.outputs.matrix) }}
-
     uses: ./.github/workflows/echo-project.yml
     with:
       project_dir: ${{ matrix.directory }}
