@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if ["${{ inputs.project_dir }}" = "INTERNAL"]; then
+          if [ "${{ inputs.project_dir }}" = "INTERNAL" ]; then
             echo No verification required
           fi
           echo ${{ inputs.project_dir }}
