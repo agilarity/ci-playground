@@ -53,7 +53,7 @@ jobs:
           if [${{ steps.changed-dirs.outputs.any_changed }} == 'true']; then
             echo "matrix={\"directory\":${{ steps.changed-dirs.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
           else
-            echo "matrix={\"directory\":[\"internal\"]}" >> "$GITHUB_OUTPUT"
+            echo "matrix={\"directory\":[\"INTERNAL\"]}" >> "$GITHUB_OUTPUT"
           fi
 
   matrix-job:
