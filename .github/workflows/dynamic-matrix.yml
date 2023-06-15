@@ -1,0 +1,33 @@
+# Credit: https://vs-blogs.medium.com/dynamic-matrix-in-github-action-e516019cfdf5
+name: Dynamic matrix array example
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  prebuild:
+    runs-on: ubuntu-latest
+    outputs:
+      os: ${{ steps.set-matrix.outputs.os }}
+    steps:
+      - name: Install JQ Tool
+        uses: mbround18/install-jq@v1
+
+      - id: set-matrix
+        run: |
+          example_directories=$(ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]')
+          echo "matrix={\"directory\":${{ example_directories }}}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: prebuild
+    runs-on: ubuntu-latest
+    name: "${{ matrix.directory }}"
+    strategy:
+      fail-fast: true
+      matrix:
+        directory: ${{ fromJSON(needs.prebuild.outputs.directory) }}
+    steps:
+      - name: running
+        run: echo "running job with ${{ matrix.directory }}"
