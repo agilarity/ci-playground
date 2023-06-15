@@ -21,7 +21,8 @@ jobs:
           echo "matrix={\"directory\":[\"INTERNAL\"]}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
-    name: Verify
+    name: Echo Directory
+    runs-on: ubuntu-latest
     needs: [setup-matrix-job]
     strategy:
       matrix: ${{ fromJSON(needs.setup-matrix-job.outputs.matrix) }}
