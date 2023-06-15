@@ -15,6 +15,9 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Create List
         id: example-list
         run: |
@@ -23,7 +26,7 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          examples=$(ls | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]')
+          examples=$(ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]')
           echo "matrix={\"directory\":$examples}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
