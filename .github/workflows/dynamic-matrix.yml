@@ -2,35 +2,28 @@
 name: Dynamic matrix array example
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-
+    inputs:
+      OS:
+        description: provide all OS in stringified array format
+        required: true
+        default: "'ubuntu-latest','windows-latest'"
 jobs:
-  setup-matrix-job:
+  prebuild:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      os: ${{ steps.set-matrix.outputs.os }}
     steps:
-      - name: Install JQ Tool
-        uses: mbround18/install-jq@v1
-
-      - name: Get example directories
-        id: examples
-        run: |
-          ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]' | echo
-
       - id: set-matrix
         run: |
-          echo "matrix={\"directory\":${{ steps.examples.outputs }}}" >> "$GITHUB_OUTPUT"
-
-  matrix-job:
-    name: Echo
+          echo "os=${{format('[{0}]',github.event.inputs.OS)}}" >> $GITHUB_OUTPUT
+  build:
+    needs: prebuild
     runs-on: ubuntu-latest
-    needs: [setup-matrix-job]
+    name: "${{ matrix.OS }}"
     strategy:
-      matrix: ${{ fromJSON(needs.setup-matrix-job.outputs.matrix) }}
-      fail-fast: true
+      fail-fast: false
+      matrix:
+        OS: ${{fromJSON(needs.prebuild.outputs.os)}}
     steps:
       - name: running
-        run: echo "running job with ${{ matrix.directory }}"
+        run: echo "running job with ${{ matrix.OS }}"
