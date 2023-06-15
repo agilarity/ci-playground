@@ -23,7 +23,8 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          echo "matrix={\"directory\":[\"${{ steps.example-list.outputs }}\"]}" >> "$GITHUB_OUTPUT"
+          examples="[\"${{ steps.example-list.outputs }}\"]"
+          echo "matrix={\"directory\":$examples}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Echo Directory
