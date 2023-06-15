@@ -23,9 +23,9 @@ jobs:
       - name: Set Matrix
         id: set-matrix
         run: |
-          ls
-          echo
-          ls examples
+          pwd | echo
+          ls | echo
+          ls examples | echo
           echo
           examples=$(ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]')
           echo "matrix={\"directory\":$examples}" >> "$GITHUB_OUTPUT"
