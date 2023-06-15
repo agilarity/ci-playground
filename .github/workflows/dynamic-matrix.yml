@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  prebuild:
+  setup-matrix-job:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -16,22 +16,21 @@ jobs:
         uses: mbround18/install-jq@v1
 
       - name: Get example directories
-        id: example_directories
+        id: examples
         run: |
-          ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]'
+          ls examples | awk '{print "examples/" $0}' | grep -v examples/README.md | grep -v examples/gtk | grep -v examples/Makefile.toml | jq -R -s -c 'split("\n")[:-1]' | echo
 
       - id: set-matrix
         run: |
-          echo "matrix={\"directory\":${{ steps.example_directories.outputs }}}" >> "$GITHUB_OUTPUT"
+          echo "matrix={\"directory\":${{ steps.examples.outputs }}}" >> "$GITHUB_OUTPUT"
 
-  build:
-    needs: prebuild
+  matrix-job:
+    name: Echo
     runs-on: ubuntu-latest
-    name: "${{ matrix.directory }}"
+    needs: [setup-matrix-job]
     strategy:
+      matrix: ${{ fromJSON(needs.setup-matrix-job.outputs.matrix) }}
       fail-fast: true
-      matrix:
-        directory: ${{ fromJSON(needs.prebuild.outputs.matrix) }}
     steps:
       - name: running
         run: echo "running job with ${{ matrix.directory }}"
