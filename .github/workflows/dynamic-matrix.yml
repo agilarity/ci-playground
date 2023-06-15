@@ -16,13 +16,14 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Create List
+        id: example-list
         run: |
           echo INTERNAL
 
       - name: Set Matrix
         id: set-matrix
         run: |
-          echo "matrix={\"directory\":[\"${{ INTERNAL }}\"]}" >> "$GITHUB_OUTPUT"
+          echo "matrix={\"directory\":[\"${{ steps.example-list.outputs }}\"]}" >> "$GITHUB_OUTPUT"
 
   matrix-job:
     name: Echo Directory
