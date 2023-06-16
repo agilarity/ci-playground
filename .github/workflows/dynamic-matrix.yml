@@ -1,12 +1,12 @@
 name: Verify Changed Examples
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
 
 jobs:
   setup-matrix-job:
