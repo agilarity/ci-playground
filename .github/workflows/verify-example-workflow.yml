@@ -15,6 +15,10 @@ jobs:
     name: Verify ${{ inputs.project_dir }}
     runs-on: ubuntu-latest
     steps:
+
+      - name: Update archives
+        run: |
+          apt-get update
     
       - name: Install playwright dependencies
         run: | 
