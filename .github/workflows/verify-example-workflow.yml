@@ -18,7 +18,7 @@ jobs:
 
       - name: Update archives
         run: |
-          apt-get update
+          sudo apt-get update
     
       - name: Install playwright dependencies
         run: | 
