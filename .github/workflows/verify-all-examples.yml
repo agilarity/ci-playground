@@ -2,9 +2,9 @@ name: Verify All Examples
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   # pull_request:
   #   branches:
   #     - main
