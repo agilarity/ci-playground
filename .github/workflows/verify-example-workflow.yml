@@ -18,7 +18,7 @@ jobs:
     
       - name: Install playwright dependencies
         run: | 
-          sudo apt-get update\
+          sudo apt-get update
           sudo apt-get install libegl1\                   
             libvpx7\                                    
             libevent-2.1-7\                             
