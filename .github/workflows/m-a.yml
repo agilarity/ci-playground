@@ -9,8 +9,14 @@ on:
       - main
 
 jobs:
+  setup-os:
+    uses: ./.github/workflows/setup-os.yml
+    with:
+      toolchain: stable
+
   call-with-matrix:
     name: Matrix caller
+    needs: [setup-os]
     strategy:
       matrix:
         project_dir: [dev, stage, prod]

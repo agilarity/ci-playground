@@ -14,3 +14,7 @@ jobs:
     steps:
       - run: |
           echo "Project directory: ${{ inputs.project_dir }}"
+
+      - name: List Files
+        run: |
+          ls | sort -u
